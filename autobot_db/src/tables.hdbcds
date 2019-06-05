@@ -1,8 +1,9 @@
 namespace autobot.autobot_db;
 
+@OData.publish : true
 context tables {
 
-    /*@@layout{"layoutInfo":{"x":-73,"y":-49.5}}*/
+    /*@@layout{"layoutInfo":{"x":-5,"y":-50.5}}*/
     entity Address {
         Address_ID : Integer;
         Rua        : String(100);
@@ -31,5 +32,33 @@ context tables {
             Contato_Destino      : String(50);
             Endereco_Origem      : association[1, 0..1] to tables.Address { Address_ID };
             Endereco_Destino     : association[0..1]    to tables.Address { Address_ID };
+    };
+
+    /*@@layout{"layoutInfo":{"x":-625,"y":-16.5}}*/
+    entity Checklist {
+        key Checklist_ID : Integer;
+            Pergunta     : String(100);
+            Resp_Boolean : Boolean;
+            Shipment_ID  : association[1, 0..1] to tables.Shipment { Shipment_ID };
+            Resp_Texto   : String(100);
+    };
+
+    /*@@layout{"layoutInfo":{"x":-559,"y":195.5}}*/
+    entity Lot {
+        Veiculo_ID  : Integer;
+        lat         : Double;
+        lon         : Double;
+        velocidade  : Double;
+        humidade    : Double;
+        temperatura : Double;
+        olhoFechado : Boolean;
+    };
+
+    /*@@layout{"layoutInfo":{"x":79,"y":155.5}}*/
+    entity Evento_NP {
+        created     : UTCDateTime;
+        Shipment_ID : association[1, 0..1] to tables.Shipment { Shipment_ID };
+        descricao   : String(100);
+        tipo        : String(100);
     };
 };
